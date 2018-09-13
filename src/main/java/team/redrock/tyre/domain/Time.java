@@ -6,6 +6,24 @@ public class Time {
     private String day;
     private String lesson;
     private List<Integer> week;
+    private int hash_day;
+    private int hash_lesson;
+
+    public int getHash_day() {
+        return hash_day;
+    }
+
+    public void setHash_day(int hash_day) {
+        this.hash_day = hash_day;
+    }
+
+    public int getHash_lesson() {
+        return hash_lesson;
+    }
+
+    public void setHash_lesson(int hash_lesson) {
+        this.hash_lesson = hash_lesson;
+    }
 
     public String getDay() {
         return day;

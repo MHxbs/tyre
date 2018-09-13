@@ -33,7 +33,7 @@ public class KebiaoService {
         kebiaoResult.setNowWeek(kebiaoTime.getNowWeek());
         kebiaoResult.setStuNum(stu_num);
         kebiaoResult.setTerm(kebiaoTime.getTerm());
-        kebiaoResult.setSuccess("success");
+        kebiaoResult.setSuccess(true);
         kebiaoResult.setVersion("1.0.1");
         kebiaoResult.setStatus(200);
 

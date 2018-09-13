@@ -15,6 +15,7 @@ import team.redrock.tyre.service.KebiaoService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class IndexController {
@@ -32,12 +33,16 @@ public class IndexController {
 
 
     @PostMapping(value = "/kebiao")
-    public KebiaoResult getKebiao(@RequestParam("stu_num") String stu_num,
-                                  @RequestParam("forceFetch") String  forceFetch ) throws IOException {
-/*
-        KebiaoResult kebiaoResult=(KebiaoResult) redisTemplate.opsForValue().get(stu_num);
+    public KebiaoResult getKebiao(@RequestParam(name = "stu_num",required = false,defaultValue = "0") String stu_num,
+                                  @RequestParam(name = "forceFetch",required = false,defaultValue = "false") String  forceFetch ) throws IOException {
 
-        if (kebiaoResult!=null){
+
+        // redis
+
+
+        if ( redisTemplate.opsForValue().get(stu_num)!=null){
+
+            KebiaoResult kebiaoResult=(KebiaoResult) redisTemplate.opsForValue().get(stu_num);
             //Long begin =System.currentTimeMillis();
             System.out.println("通过缓存："+stu_num);
            // Long end=System.currentTimeMillis();
@@ -45,32 +50,39 @@ public class IndexController {
 
             return kebiaoResult;
         }else {
-            System.out.println("通过爬:"+stu_num);
-             kebiaoResult=kebiaoService.getKebiao(stu_num);
-            redisTemplate.opsForValue().set(stu_num,kebiaoResult);
-            return kebiaoResult;
-        }*/
+
+            // mysql 索引
+
+            if (courseInfoMapper.selectOnrByStuNum(stu_num)!=null) {
+                KebiaoResult kebiaoResult2=courseInfoMapper.selectOnrByStuNum(stu_num);
+                String dataStr= (String) kebiaoResult2.getData();
+                Gson gson=new Gson();
+                List<CourseInfo> courseInfos=gson.fromJson(dataStr,new TypeToken<List<CourseInfo>>(){}.getType());
+                kebiaoResult2.setData(courseInfos);
+
+                redisTemplate.opsForValue().set(stu_num,kebiaoResult2);
+                redisTemplate.expire(stu_num,60, TimeUnit.SECONDS);
+                System.out.println("从数据库拿："+stu_num);
+                return kebiaoResult2;
+            }else {
+                System.out.println("爬的："+stu_num);
+                KebiaoResult kebiaoResult1=kebiaoService.getKebiao(stu_num);
+                String dataStr= (String) kebiaoResult1.getData();
+                courseInfoMapper.insertOne(kebiaoResult1);
+                Gson gson=new Gson();
+                List<CourseInfo> courseInfos=gson.fromJson(dataStr,new TypeToken<List<CourseInfo>>(){}.getType());
+                kebiaoResult1.setData(courseInfos);
+
+                redisTemplate.opsForValue().set(stu_num,kebiaoResult1);
+                redisTemplate.expire(stu_num,60, TimeUnit.SECONDS);
+                return kebiaoResult1;
+            }
 
 
-        // mysql 索引
-        KebiaoResult kebiaoResult=courseInfoMapper.selectOnrByStuNum(stu_num);
-        if (kebiaoResult!=null) {
-            String dataStr= (String) kebiaoResult.getData();
-            Gson gson=new Gson();
-            List<CourseInfo> courseInfos=gson.fromJson(dataStr,new TypeToken<List<CourseInfo>>(){}.getType());
-            kebiaoResult.setData(courseInfos);
-
-
-            System.out.println("从数据库拿："+stu_num);
-            return kebiaoResult;
-        }else {
-            System.out.println("爬的："+stu_num);
-            KebiaoResult kebiaoResult1=kebiaoService.getKebiao(stu_num);
-            courseInfoMapper.insertOne(kebiaoResult1);
-
-
-            return kebiaoResult1;
         }
+
+
+
 
         //return kebiaoService.getKebiao(stu_num);
     }

@@ -5,7 +5,7 @@ import java.util.List;
 public class KebiaoResult<T> {
 
     private int status;
-    private String success;
+    private boolean success;
     private String version;
     private String term;
     private String stuNum;
@@ -28,11 +28,11 @@ public class KebiaoResult<T> {
         this.status = status;
     }
 
-    public String getSuccess() {
+    public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 

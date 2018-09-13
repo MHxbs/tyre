@@ -10,7 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KebiaoUtil {
-
+    /**
+     * 得到现在是第几周，是哪一个学期
+     * @param data jwzx html
+     * @return KebiaoTime
+     */
     public static KebiaoTime getKebiaoTime(String data){
         KebiaoTime kebiaoTime=new KebiaoTime();
         Pattern pattern=Pattern.compile("今天是第 (\\d*?) 周");
@@ -29,7 +33,14 @@ public class KebiaoUtil {
         return kebiaoTime;
     }
 
-    // 从教务在线上拿课表
+    /**
+     * 从教务在线上拿课表
+     * 通过列表爬，先爬主行，在通过courseNum，rowspan爬剩下的
+     * @param data
+     * @return
+     * @throws IOException
+     */
+
     public static List<CourseInfo> getTimeTableFromJWZX(String data) throws IOException {
 
         // 得到教务在线的html
@@ -37,7 +48,7 @@ public class KebiaoUtil {
         //System.out.println(data);
 
         // 因为按列表查询每个课程可能有几行
-        // 所以先查第一个，得到rowspan，然后彭姐restRegex得到完整的正则表达式
+        // 所以先查第一个，得到rowspan，然后拼接restRegex得到完整的正则表达式
 
         // 最开始的匹配式
         String firstRegex="<tr ><td rowspan='(.*?)' align='center'>(.*?)</td>  \t\t\t\t\t<td (.*?)>(.*?)</td>\t\t\t\t\t<td (.*?)>(.*?)</td>\t\t\t\t\t<td (.*?)>(.*?)</td><td (.*?)>(.*?)</td><td>(.*?)</td> \t\t\t\t\t<td>(.*?)</td><td>(.*?)</td>\t\t\t\t\t<td (.*?)><a href='(.*?)' target=_blank>名单</a></td>\t\t\t\t\t<td (.*?)></td>\t\t\t\t\t</tr>";
@@ -67,8 +78,11 @@ public class KebiaoUtil {
             courseInfo.setDay(time.getDay());
             //得到是第几节课
             courseInfo.setLesson(time.getLesson());
+            courseInfo.setHash_day(time.getHash_day());
+            courseInfo.setHash_lesson(time.getHash_lesson());
             //得到是那几周
             courseInfo.setRawWeek(TimeUtil.getWeekName(matcher.group(12)));
+            courseInfo.setWeekModel(TimeUtil.getWeekModel(matcher.group(12)));
 
             List<Integer> totalWeek =time.getWeek();
 
@@ -109,8 +123,11 @@ public class KebiaoUtil {
                     courseInfo1.setDay(time1.getDay());
                     //得到是第几节课
                     courseInfo1.setLesson(time1.getLesson());
+                    courseInfo1.setHash_lesson(time1.getHash_lesson());
+                    courseInfo1.setHash_day(time1.getHash_day());
                     //得到是那几周
                     courseInfo1.setRawWeek(TimeUtil.getWeekName(restMatcher.group(i+1)));
+                    courseInfo1.setWeekModel(TimeUtil.getWeekModel(restMatcher.group(i+1)));
 
                     List<Integer> totalWeek1 =time1.getWeek();
                     courseInfo1.setWeek(totalWeek1);
@@ -123,6 +140,16 @@ public class KebiaoUtil {
             }
 
         }
+        // 因为是按列表爬的，所以要通过hash_day,hash_lesson排序
+        courseInfoList.sort(new Comparator<CourseInfo>() {
+            @Override
+            public int compare(CourseInfo o1, CourseInfo o2) {
+                int a1=(o1.getHash_day()+1)*10+o1.getHash_lesson();
+                int a2=(o2.getHash_day()+1)*10+o2.getHash_lesson();
+                return a1-a2;
+            }
+        });
+
         return courseInfoList;
     }
 

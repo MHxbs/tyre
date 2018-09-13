@@ -27,3 +27,4 @@
 mvnw
 mvnw.cmd
 *.yml
+.*log

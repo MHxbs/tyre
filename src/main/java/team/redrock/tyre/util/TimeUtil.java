@@ -9,13 +9,20 @@ import java.util.regex.Pattern;
 
 
 public class TimeUtil {
-
+    /**
+     * 通过timeStr 例如：星期1第9-10节1-16周
+     * 得到day lesson week hash_day,hash_lesson
+     * @param timeStr
+     * @return
+     */
     public static Time getTime(String timeStr){
         timeStr.replace(" ","");
         Time time=new Time();
-        time.setDay(getDay(timeStr));
-        time.setLesson(getLesson(timeStr));
+        time.setDay(getDay(timeStr,false));
+        time.setLesson(getLesson(timeStr,false));
         time.setWeek(getWeek(timeStr));
+        time.setHash_day(Integer.parseInt(getDay(timeStr,true))-1);
+        time.setHash_lesson(Integer.parseInt(getLesson(timeStr,true))-1);
         return time;
     }
 
@@ -46,6 +53,32 @@ public class TimeUtil {
         });
         return allWeek;
 
+    }
+
+    public static String getWeekModel(String weekStr){
+        weekStr=weekStr.replaceAll(" ","");
+        String result="";
+
+        Pattern pattern=Pattern.compile("星期\\d第(.*?)节(.*?)");
+        Matcher matcher=pattern.matcher(weekStr);
+        if (matcher.find()) {
+            String week=matcher.group(2);
+
+            Pattern pattern2=Pattern.compile("(\\d*?)-(\\d*?)周双周");
+            Matcher matcher2=pattern2.matcher(week);
+            Pattern pattern3=Pattern.compile("(\\d*?)-(\\d*?)周单周");
+            Matcher matcher3=pattern3.matcher(week);
+
+
+            if (matcher2.find()){
+                result="double";
+            }else if (matcher3.find()){
+                result="single";
+            }else {
+                result="all";
+            }
+        }
+        return result;
     }
 
     // 把传过来的String类型的周数转化为set类型
@@ -112,27 +145,36 @@ public class TimeUtil {
     }
 
     //传入这样的格式：：星期一第9-10节1-16周，得到是星期几
-    public static String getDay(String time){
+    public static String getDay(String time,boolean num){
         //把字符串中空格全部去掉
         String time1=time.replaceAll(" ","");
 
         String result=null;
-        Pattern pattern=Pattern.compile("星期\\d");
+        Pattern pattern=Pattern.compile("星期(\\d)");
         Matcher matcher=pattern.matcher(time1);
         if (matcher.find()){
-            result=matcher.group();
+            if (num){
+                result=matcher.group(1);
+            }else {
+                result = matcher.group();
+            }
         }
         return  result;
     }
     //传入这样的格式：：星期一第9-10节1-16周，解析得到是第几节课
-    public static String getLesson(String time){
+    public static String getLesson(String time,boolean num){
         String time1=time.replaceAll(" ","");
 
         String result=null;
         Pattern pattern=Pattern.compile("第(.*?)节");
         Matcher matcher=pattern.matcher(time1);
         if (matcher.find()){
-            result=matcher.group();
+            if (num){
+                String[] a=matcher.group(1).split("-");
+                result=a[0];
+            }else {
+                result = matcher.group();
+            }
         }
         return  result;
     }
