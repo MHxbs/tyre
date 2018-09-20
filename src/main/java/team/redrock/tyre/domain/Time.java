@@ -2,12 +2,24 @@ package team.redrock.tyre.domain;
 
 import java.util.List;
 
+/**
+ * 个人课表中相关时间的bean
+ */
 public class Time {
     private String day;
     private String lesson;
     private List<Integer> week;
     private int hash_day;
     private int hash_lesson;
+    private int period;
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
 
     public int getHash_day() {
         return hash_day;

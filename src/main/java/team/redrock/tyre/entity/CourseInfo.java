@@ -4,6 +4,9 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+/**
+ * 课程信息的bean
+ */
 public class CourseInfo {
 
     private int hash_day;

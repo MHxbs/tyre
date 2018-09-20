@@ -15,6 +15,7 @@ public class TimeUtil {
      * @param timeStr
      * @return
      */
+
     public static Time getTime(String timeStr){
         timeStr.replace(" ","");
         Time time=new Time();
@@ -23,7 +24,21 @@ public class TimeUtil {
         time.setWeek(getWeek(timeStr));
         time.setHash_day(Integer.parseInt(getDay(timeStr,true))-1);
         time.setHash_lesson(Integer.parseInt(getLesson(timeStr,true))-1);
+        time.setPeriod(getPeriod(timeStr));
         return time;
+    }
+
+    public static int getPeriod(String time){
+
+        String time1=time.replaceAll(" ","");
+
+        int result=0;
+        Pattern pattern=Pattern.compile("第(\\d*?)-(\\d*?)节");
+        Matcher matcher=pattern.matcher(time1);
+        if (matcher.find()){
+            result= Integer.parseInt(matcher.group(2))-Integer.parseInt(matcher.group(1))+1;
+        }
+        return result;
     }
 
 

@@ -2,6 +2,10 @@ package team.redrock.tyre.entity;
 
 import java.util.List;
 
+/**
+ * 课表的result
+ * @param <T>
+ */
 public class KebiaoResult<T> {
 
     private int status;
@@ -11,6 +15,24 @@ public class KebiaoResult<T> {
     private String stuNum;
     private T data;
     private int nowWeek;
+    private long cachedTimestamp;
+    private long outOfDateTimestamp;
+
+    public long getCachedTimestamp() {
+        return cachedTimestamp;
+    }
+
+    public void setCachedTimestamp(long cachedTimestamp) {
+        this.cachedTimestamp = cachedTimestamp;
+    }
+
+    public long getOutOfDateTimestamp() {
+        return outOfDateTimestamp;
+    }
+
+    public void setOutOfDateTimestamp(long outOfDateTimestamp) {
+        this.outOfDateTimestamp = outOfDateTimestamp;
+    }
 
     public T getData() {
         return data;

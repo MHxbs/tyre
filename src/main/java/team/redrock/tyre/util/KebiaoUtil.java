@@ -78,6 +78,7 @@ public class KebiaoUtil {
             courseInfo.setDay(time.getDay());
             //得到是第几节课
             courseInfo.setLesson(time.getLesson());
+            courseInfo.setPeriod(time.getPeriod());
             courseInfo.setHash_day(time.getHash_day());
             courseInfo.setHash_lesson(time.getHash_lesson());
             //得到是那几周

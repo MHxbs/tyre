@@ -1,5 +1,8 @@
 package team.redrock.tyre.domain;
 
+/**
+ * 课表中处理相关时间的bean
+ */
 public class KebiaoTime {
     private String term;
     private String stuNum;
