@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team.redrock.tyre.entity.CourseInfo;
 import team.redrock.tyre.entity.KebiaoResult;
+import team.redrock.tyre.exception.StuIdNullException;
 import team.redrock.tyre.exception.StuidValidException;
 import team.redrock.tyre.mapper.KebiaoResultMapper;
 import team.redrock.tyre.service.KebiaoService;
@@ -46,16 +47,15 @@ public class IndexController {
      */
     @PostMapping(value = "/kebiao")
     public KebiaoResult getKebiao(@RequestParam(name = "stu_num",required = false,defaultValue = "-1") String stu_num,
-                                  @RequestParam(name = "forceFetch",required = false,defaultValue = "false") String  forceFetch ) throws IOException, StuidValidException {
+                                  @RequestParam(name = "forceFetch",required = false,defaultValue = "false") String  forceFetch ) throws IOException, StuidValidException, StuIdNullException {
 
         // 如果没传
         if (stu_num.equals("-1")){
-            throw new StuidValidException(-1,"stuNum not allowed");
+            throw new StuIdNullException(false,"stuNum not allowed");
     }
         // 如果学号包含标点符号
         if (check(stu_num)){
-
-            throw new StuidValidException(-1,"stuNum not allowed");
+            throw new StuIdNullException(false,"stuNum not allowed");
         }
 
 

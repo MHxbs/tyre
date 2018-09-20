@@ -152,11 +152,9 @@ public class Exam {
 
     public static String getDate(String dateStr){
         dateStr=dateStr.replaceAll(" ","");
-        System.out.println(dateStr);
         String month=dateStr.substring(4,6);
         String day=dateStr.substring(6,8);
-        System.out.println(month);
-        System.out.println(day);
+
 
         String date=month+"月"+day+"日";
         return date;

@@ -25,7 +25,7 @@ public class ExamService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(data);
+
 
         ExamResult examResult=new ExamResult();
 
@@ -58,7 +58,7 @@ public class ExamService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(data);
+
 
         List<ReExamInfo> examInfoList=Exam.getReExam(data,stuNum);
         ExamResult examResult=new ExamResult();
