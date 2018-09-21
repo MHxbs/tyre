@@ -26,5 +26,5 @@
 .mvn
 mvnw
 mvnw.cmd
-*.yml
+application.yml
 .*log

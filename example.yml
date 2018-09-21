@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 1000ms
+
+    jedis:
+          pool:
+            max-active: 300
+            max-wait: 100ms
+            max-idle: 100
+            min-idle: 0
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/tyre?useSSL=false&erverTimezone=UTC&characterEncoding=utf-8
+    username:
+    password: 
+
+mybatis:
+  type-aliases-package: team.redrock.tyre.entity
+
+
+jwzx.chengji: http://jwc.cqupt.edu.cn/showStuQmcj.php
+jwzx.emptyroom: http://jwzx.cqupt.edu.cn/jssq/jssqEmptyRoom.php?
+jwzx.newslist: http://jwzx.cqupt.edu.cn/data/json_files.php?
+jwzx.newscontent: http://jwzx.cqupt.edu.cn/fileShowContent.php?
+jwzx.verify: http://hongyan.cqupt.edu.cn/api/verify
