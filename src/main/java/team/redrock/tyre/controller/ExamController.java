@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team.redrock.tyre.domain.ExamResult;
+import team.redrock.tyre.entity.CourseInfo;
 import team.redrock.tyre.exception.StuidValidException;
 import team.redrock.tyre.service.ExamService;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,8 +45,12 @@ public class ExamController {
         }
         else {
             ExamResult examResult = examService.getExamResult(stuNum);
-            redisTemplate.opsForValue().set(redisStuNum, examResult);
-            redisTemplate.expire(redisStuNum,10, TimeUnit.MINUTES);
+            List<ExamResult> list= (List<ExamResult>) examResult.getData();
+
+            if(list.size()>0) {
+                redisTemplate.opsForValue().set(redisStuNum, examResult);
+                redisTemplate.expire(redisStuNum, 60, TimeUnit.MINUTES);
+            }
             return examResult;
         }
 
@@ -64,13 +70,18 @@ public class ExamController {
         }
         String redisStuNum=stuNum+"Reexam";
         if (redisTemplate.opsForValue().get(redisStuNum)!=null){
-            System.out.println("redis111");
+
             return (ExamResult) redisTemplate.opsForValue().get(redisStuNum);
         }
         else {
             ExamResult examResult = examService.getReexam(stuNum);
-            redisTemplate.opsForValue().set(redisStuNum, examResult);
-            redisTemplate.expire(redisStuNum,10, TimeUnit.MINUTES);
+
+            List<ExamResult> list= (List<ExamResult>) examResult.getData();
+
+            if(list.size()>0) {
+                redisTemplate.opsForValue().set(redisStuNum, examResult);
+                redisTemplate.expire(redisStuNum, 60, TimeUnit.MINUTES);
+            }
             return examResult;
         }
 
