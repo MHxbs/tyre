@@ -6,19 +6,12 @@ import java.util.List;
 
 
 public class NewsContent {
-    Long fileId;
+
     String title;
     List<String> content;
 //    List<String> url;
 
 
-    public Long getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(Long fileId) {
-        this.fileId = fileId;
-    }
 
     public String getTitle() {
         return title;

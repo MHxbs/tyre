@@ -15,12 +15,9 @@ public class EmptyAnalyzer {
     public List<String> getEmptyRoomt(Document document, EmptyResponse response){
         List<String> rooms = new ArrayList<>();
         Elements table = document.body().getElementsByTag("tbody").get(0).children();
-//        System.out.println(table);
         table.forEach(tr->{
             tr.children().forEach(td->{
-//                System.out.println("td:"+td);
                 String room  = td.getElementsByTag("input").attr("value");
-//                System.out.println(room);
 
                 rooms.add(room);
 

@@ -1,5 +1,6 @@
 package team.redrock.tyre.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.redrock.tyre.domain.ExamInfo;
 import team.redrock.tyre.domain.ExamResult;
@@ -15,13 +16,19 @@ import java.util.regex.Pattern;
 @Service
 public class ExamService {
 
+    @Value("${jwzx.examUrl}")
+    private String examUrl;
+
+    @Value("${jwzx.reexamUrl}")
+    private String reexamUrl;
+
 
     public ExamResult getExamResult(String stuNum){
-        String url="http://jwzx.cqupt.edu.cn/ksap/showKsap.php?type=stu&id=";
-        url+=stuNum;
+
+        examUrl+=stuNum;
         String data="";
         try {
-            data= SendUrl.getDataByGet(url,"");
+            data= SendUrl.getDataByGet(examUrl,"");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,11 +57,11 @@ public class ExamService {
 
     public ExamResult getReexam(String stuNum){
 
-        String url="http://jwzx.cqupt.edu.cn/ksap/ksapSearch.php?searchType=stuBk&key=";
-        url+=stuNum;
+
+        reexamUrl+=stuNum;
         String data="";
         try {
-            data= SendUrl.getDataByGet(url,"");
+            data= SendUrl.getDataByGet(reexamUrl,"");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,11 +75,11 @@ public class ExamService {
         examResult.setStuNum(stuNum);
         examResult.setData(examInfoList);
 
-        String url1="http://jwzx.cqupt.edu.cn/ksap/showKsap.php?type=stu&id=";
-        url1+=stuNum;
+
+        examUrl+=stuNum;
         String dataTerm="";
         try {
-            dataTerm= SendUrl.getDataByGet(url1,"");
+            dataTerm= SendUrl.getDataByGet(examUrl,"");
         } catch (IOException e) {
             e.printStackTrace();
         }

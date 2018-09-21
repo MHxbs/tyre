@@ -1,4 +1,4 @@
-package team.redrock.tyre.service;
+package team.redrock.tyre.service.impl;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import team.redrock.tyre.domain.EmptyRoom;
+import team.redrock.tyre.service.EmptyRoomService;
 import team.redrock.tyre.util.NormalUtils;
 import team.redrock.tyre.util.analyzer.EmptyAnalyzer;
 import team.redrock.tyre.util.response.EmptyResponse;
@@ -31,7 +32,7 @@ public class EmptyRoomServiceImp implements EmptyRoomService {
     RedisTemplate<String,EmptyRoom> emptyRoomRedisTemplate;
 
 
-//    @Cacheable(sync = true,value = "user",key = "#weekdayNum+#sectionNum+#week+#buildNum")
+
     public EmptyResponse getRoom(String weekdayNum, String sectionNum, String week, String buildNum){
         NormalUtils normalUtils = new NormalUtils();
         EmptyResponse emptyResponse = new EmptyResponse();
@@ -51,24 +52,22 @@ if(normalUtils.isInteger(week)||normalUtils.isInteger(weekdayNum)||normalUtils.i
                 if (!emptyRoomRedisTemplate.opsForHash().hasKey("EmptyRoom", key)) {
                      str = selectEmpty(weekdayNum, sectionNum, week,emptyResponse);
 
-//                    System.out.println("调用空教室接口"+str);
                 } else {
                     result = (EmptyRoom) emptyRoomRedisTemplate.opsForHash().get("EmptyRoom", key);
                     str = result.getData();
-//                    System.out.println("调用空教室缓存");
+
                 }
             }
         } else {
             result = (EmptyRoom) emptyRoomRedisTemplate.opsForHash().get("EmptyRoom", key);
             str = result.getData();
 
-//            System.out.println("调用空教室缓存");
+
         }
 
 //        System.out.println("result:"+str);
         List<String> results = normalUtils.selectBuild(buildNum,str);
         emptyResponse.setStatus(200);
-//        emptyResponse.setBuildNum(String.valueOf(buildNum));
         emptyResponse.setInfo("success");
         emptyResponse.setVersion("1.0.0");
         emptyResponse.setBuildNum(buildNum);
@@ -88,23 +87,6 @@ if(normalUtils.isInteger(week)||normalUtils.isInteger(weekdayNum)||normalUtils.i
     return emptyResponse;
 }
 
-
-
-
-
-
-//    @Scheduled(cron = "0 0/1 * * * ?")
-//    @Override
-//    public void saveRoom(){
-//        for (int i = 0 ; i < 25 ; i ++){
-//            for(int j =1 ;j<8;j++){
-//                for(int k =0; k<5;k++){
-//                  List<String> results = getRooms(String.valueOf(i),String.valueOf(j),String.valueOf(k),"12");
-//                }
-//            }
-//        }
-//        myThreading.getUrlList();
-//    }
 
     @Override
     public List<String> selectEmpty(String weekdayNum,String sectionNum,String week,EmptyResponse emptyResponse){

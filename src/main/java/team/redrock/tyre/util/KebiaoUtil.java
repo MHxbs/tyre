@@ -10,6 +10,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KebiaoUtil {
+
+
+    /**
+     * 检查stuNum是否包含标点符号
+     * @param s
+     * @return
+     */
+    public static boolean check(String s) {
+        boolean b = false;
+
+        String tmp = s;
+        tmp = tmp.replaceAll("\\p{P}", "");
+        if (s.length() != tmp.length()) {
+            b = true;
+        }
+
+        return b;
+    }
+
     /**
      * 得到现在是第几周，是哪一个学期
      * @param data jwzx html

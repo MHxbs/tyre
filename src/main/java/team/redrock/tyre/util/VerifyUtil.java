@@ -1,5 +1,7 @@
 package team.redrock.tyre.util;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,21 +13,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VerifyUtil {
-//    @Value("${jwzx.verify}")
-//    private String verUrl;
 
 
-String verUrl = "http://hongyan.cqupt.edu.cn/api/verify";
-    public Boolean verifyIdentity(String stuNum,String idNum){
+    public Boolean verifyIdentity(String verUrl,String stuNum,String idNum){
 
-        System.out.println("调用此处");
+
         PrintWriter out=null;
         BufferedReader reader=null;
         HttpURLConnection connection=null;
         StringBuilder builder=null;
         try {
-            //创建一个url
-            System.out.println("url:"+verUrl);
+
             URL url = new URL(verUrl);
             connection = (HttpURLConnection) url.openConnection();
             // 发送POST请求必须设置如下两行
@@ -40,9 +38,7 @@ String verUrl = "http://hongyan.cqupt.edu.cn/api/verify";
             out = new PrintWriter(connection.getOutputStream());
             String content = "stuNum=" + URLEncoder.encode(stuNum, "utf8")+"&idNum="+ URLEncoder.encode(idNum, "utf8");
             out.print(content);
-//            // 发送请求参数
-//            out.print(page);
-            // flush输出流的缓冲
+
             out.flush();
 
             //得到连接中输入流，缓存到bufferedReader
@@ -63,9 +59,9 @@ String verUrl = "http://hongyan.cqupt.edu.cn/api/verify";
 
         }
 
-        System.out.println("身份验证");
+
         String JsonStr = builder.toString();
-        System.out.println("JSONSTR:"+JsonStr);
+
         Pattern pattern = Pattern.compile("\\\"status\\\":(.*?),");
         Matcher matcher = pattern.matcher(JsonStr);
         String status = null;
@@ -74,14 +70,14 @@ String verUrl = "http://hongyan.cqupt.edu.cn/api/verify";
              String[] strs =  matcher.group(0).split(":");
              String str = strs[1].replace(",","");
              status = str;
-//            System.out.println("status:"+status);
+
         }
         if(status.equals("200"))
             return true;
         else{
             return false;
         }
-//        return JSONObject.parseObject(JsonStr);
+
 
     }
 

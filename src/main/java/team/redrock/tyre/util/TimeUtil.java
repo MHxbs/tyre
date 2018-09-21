@@ -28,6 +28,7 @@ public class TimeUtil {
         return time;
     }
 
+
     public static int getPeriod(String time){
 
         String time1=time.replaceAll(" ","");

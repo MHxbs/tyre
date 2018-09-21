@@ -1,4 +1,4 @@
-package team.redrock.tyre.service;
+package team.redrock.tyre.service.impl;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import team.redrock.tyre.domain.NewsContent;
 import team.redrock.tyre.domain.NewsData;
 import team.redrock.tyre.domain.NewsInfo;
+import team.redrock.tyre.service.NewsService;
 import team.redrock.tyre.util.UrlConnectUtil;
 import team.redrock.tyre.util.analyzer.NewsContentAnalyzer;
 import team.redrock.tyre.util.response.NewsContentResponse;
@@ -81,8 +82,7 @@ public class NewsServiceImp implements NewsService {
         response.setStatus(-20);
         try {
              results = newsContentAnalyzer.getNewsContent(con.get(),response);
-             results.setFileId(id);
-//             newsContentMapper.insert(id,results.getTitle(),results.getContent());
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package team.redrock.tyre.exception;
 
-import team.redrock.tyre.util.Exam;
+
 
 public class StuIdNullException extends Exception {
         private boolean success;

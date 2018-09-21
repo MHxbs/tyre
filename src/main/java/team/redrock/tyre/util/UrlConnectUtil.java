@@ -21,7 +21,7 @@ public class UrlConnectUtil {
         HttpURLConnection connection=null;
         StringBuilder builder=null;
         try {
-            //创建一个url
+
 
             URL url = new URL(newsurl);
             connection = (HttpURLConnection) url.openConnection();
@@ -34,9 +34,7 @@ public class UrlConnectUtil {
 
             // 获取URLConnection对象对应的输出流
             out = new PrintWriter(connection.getOutputStream());
-//            // 发送请求参数
-//            out.print(page);
-            // flush输出流的缓冲
+
             out.flush();
 
             //得到连接中输入流，缓存到bufferedReader

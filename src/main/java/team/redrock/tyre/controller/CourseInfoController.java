@@ -14,6 +14,7 @@ import team.redrock.tyre.exception.StuIdNullException;
 import team.redrock.tyre.exception.StuidValidException;
 import team.redrock.tyre.mapper.KebiaoResultMapper;
 import team.redrock.tyre.service.KebiaoService;
+import team.redrock.tyre.util.KebiaoUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @RestController
-public class IndexController {
+public class CourseInfoController {
 
 
     @Autowired
@@ -54,7 +55,7 @@ public class IndexController {
             throw new StuIdNullException(false,"stuNum not allowed");
     }
         // 如果学号包含标点符号
-        if (check(stu_num)){
+        if (KebiaoUtil.check(stu_num)){
             throw new StuIdNullException(false,"stuNum not allowed");
         }
 
@@ -125,22 +126,7 @@ public class IndexController {
         return kebiaoResult;
     }
 
-    /**
-     * 检查stuNum是否包含标点符号
-     * @param s
-     * @return
-     */
-    public boolean check(String s) {
-        boolean b = false;
 
-        String tmp = s;
-        tmp = tmp.replaceAll("\\p{P}", "");
-        if (s.length() != tmp.length()) {
-            b = true;
-        }
-
-        return b;
-    }
 
 
 }

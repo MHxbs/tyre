@@ -23,7 +23,7 @@ public class NewsContentAnalyzer {
         Element div = element.getElementsByTag("div").get(0);
         String title  = div.getElementsByTag("h3").text();
         data.setTitle(title);
-//        System.out.println(div);
+
         String content = div.getElementsByTag("p").get(1).text();
         if (content.equals("")){
             Elements contents = div.getElementsByTag("span");
@@ -34,15 +34,10 @@ public class NewsContentAnalyzer {
             strs.add(content);
         }
 
-//        System.out.println("--------------------content----------------------\n"+content);
+
         data.setContent(strs);
-        ;
-//        Elements ul = div.getElementsByTag("ul").get(0).children();
-//        ul.forEach(li ->{
-//            String url = li.getElementsByTag("a").attr("href");
-//            urls.add(url);
-//        });
-//        data.setUrl(urls);
+
+
         if(title==null){
             newsContentResponse.setStatus(-20);
         }

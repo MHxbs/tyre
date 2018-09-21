@@ -2,6 +2,8 @@ package team.redrock.tyre.service;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.redrock.tyre.entity.CourseInfo;
 import team.redrock.tyre.entity.KebiaoResult;
@@ -15,12 +17,15 @@ import java.util.List;
 @Service
 public class KebiaoService {
 
+    @Value("${jwzx.courseInfo}")
+    private String courseInfoURL;
+
     public KebiaoResult getKebiao(String stu_num) throws IOException {
 
         KebiaoResult kebiaoResult=new KebiaoResult();
 
         String param="xh="+stu_num;
-        String data= SendUrl.getDataByGet("http://jwzx.cqupt.edu.cn/kebiao/kb_stu.php",param);
+        String data= SendUrl.getDataByGet(courseInfoURL,param);
 
         List<CourseInfo> courseInfoList=KebiaoUtil.getTimeTableFromJWZX(data);
         KebiaoTime kebiaoTime=KebiaoUtil.getKebiaoTime(data);
