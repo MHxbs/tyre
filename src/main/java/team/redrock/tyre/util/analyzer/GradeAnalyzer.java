@@ -14,7 +14,12 @@ import java.util.List;
 
 @Component
 public class GradeAnalyzer {
-
+    /**
+     * 分析数据，爬取成绩信息的工具类
+     * @param document
+     * @param response
+     * @return
+     */
     public List<GradeInfo> getGrade(Document document, GradeResponse response){
         List<GradeInfo> results = new ArrayList<>();
 

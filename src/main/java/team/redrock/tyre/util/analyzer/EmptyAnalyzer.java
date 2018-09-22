@@ -12,6 +12,12 @@ import java.util.List;
 @Component
 public class EmptyAnalyzer {
 
+    /**
+     * 空教室分析数据，爬取信息的工具类
+     * @param document
+     * @param response
+     * @return
+     */
     public List<String> getEmptyRoomt(Document document, EmptyResponse response){
         List<String> rooms = new ArrayList<>();
         Elements table = document.body().getElementsByTag("tbody").get(0).children();

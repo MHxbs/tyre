@@ -14,7 +14,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class UrlConnectUtil {
-
+    /**网络请求获取新闻列表
+     *
+     * @param newsurl
+     * @return
+     */
     public JSONObject getNewsList(String newsurl){
         PrintWriter out=null;
         BufferedReader reader=null;

@@ -8,8 +8,25 @@ import java.util.List;
 public class NewsContent {
 
     String title;
-    List<String> content;
-//    List<String> url;
+    String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<Url> getUrlData() {
+        return urlData;
+    }
+
+    public void setUrlData(List<Url> urlData) {
+        this.urlData = urlData;
+    }
+
+    List<Url> urlData;
 
 
 
@@ -21,11 +38,4 @@ public class NewsContent {
         this.title = title;
     }
 
-    public List<String> getContent() {
-        return content;
-    }
-
-    public void setContent(List<String> content) {
-        this.content = content;
-    }
 }

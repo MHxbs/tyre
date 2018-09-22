@@ -52,6 +52,12 @@ public class RedisConfig {
         return template;
     }
 
+    /**
+     * 自定义序列化器
+     * @param redisConnectionFactory
+     * @return tempalte
+     * @throws UnknownHostException
+     */
     @Bean
     public RedisTemplate<String, EmptyRoom> EmptyredisTemplate(
             RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {

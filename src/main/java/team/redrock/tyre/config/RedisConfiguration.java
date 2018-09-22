@@ -50,13 +50,15 @@ public class RedisConfiguration
             }
         };
     }
-
+    /**
+     * 自定义缓存管理器
+     */
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
 
 
-        //        设置CacheManager的值序列化方式为JdkSerializationRedisSerializer,但其实RedisCacheConfiguration默认就是使用StringRedisSerializer序列化key，JdkSerializationRedisSerializer序列化value,所以以下注释代码为默认实现
+
         ClassLoader loader = this.getClass().getClassLoader();
         GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer();
         RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair.fromSerializer(jsonSerializer);
@@ -79,9 +81,7 @@ public class RedisConfiguration
             defaultCacheConfig.entryTtl(Duration.ofMinutes(30));
         //初始化RedisCacheManager
         RedisCacheManager cacheManager = new RedisCacheManager(redisCacheWriter, defaultCacheConfig, redisCacheConfigurationMap);
-//        RedisCacheManager cacheManager = RedisCacheManager.builder(connectionFactory)
-//                .withInitialCacheConfigurations(redisCacheConfigurationMap)
-//                .cacheDefaults(defaultCacheConfig).build();
+
         return cacheManager;
     }
 

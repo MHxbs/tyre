@@ -14,7 +14,12 @@ import java.util.regex.Pattern;
 
 public class VerifyUtil {
 
-
+    /**
+     * 查询成绩身份验证
+     * @param stuNum
+     * @param idNum
+     * @return
+     */
     public Boolean verifyIdentity(String verUrl,String stuNum,String idNum){
 
 
