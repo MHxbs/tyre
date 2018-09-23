@@ -1,5 +1,6 @@
 package team.redrock.tyre.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.redrock.tyre.domain.ExamInfo;
@@ -14,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@Slf4j
 public class ExamService {
 
     @Value("${jwzx.examUrl}")
@@ -29,6 +31,7 @@ public class ExamService {
         String data="";
         try {
             data= SendUrl.getDataByGet(examUrl,"");
+            log.info("请求教务在线examUrl出现问题");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,6 +65,7 @@ public class ExamService {
         String data="";
         try {
             data= SendUrl.getDataByGet(reexamUrl,"");
+            log.info("请求教务在线reexamUrl出现问题");
         } catch (IOException e) {
             e.printStackTrace();
         }

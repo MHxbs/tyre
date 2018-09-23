@@ -2,7 +2,7 @@ package team.redrock.tyre.service;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.redrock.tyre.entity.CourseInfo;
@@ -15,17 +15,24 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@Slf4j
 public class KebiaoService {
 
     @Value("${jwzx.courseInfo}")
     private String courseInfoURL;
 
-    public KebiaoResult getKebiao(String stu_num) throws IOException {
+    public KebiaoResult getKebiao(String stu_num)  {
 
         KebiaoResult kebiaoResult=new KebiaoResult();
 
         String param="xh="+stu_num;
-        String data= SendUrl.getDataByGet(courseInfoURL,param);
+        String data= null;
+        try {
+            data = SendUrl.getDataByGet(courseInfoURL,param);
+            log.info("请求教务在线courseInfoUrl出现问题");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         List<CourseInfo> courseInfoList=KebiaoUtil.getTimeTableFromJWZX(data);
         KebiaoTime kebiaoTime=KebiaoUtil.getKebiaoTime(data);

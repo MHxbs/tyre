@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import team.redrock.tyre.service.GradeService;
 import team.redrock.tyre.service.VerifyService;
 import team.redrock.tyre.util.VerifyUtil;
-import team.redrock.tyre.util.response.GradeResponse;
+import team.redrock.tyre.domain.response.GradeResponse;
 
 @Service
 public class VerifyServiceImp implements VerifyService {

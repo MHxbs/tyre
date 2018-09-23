@@ -28,3 +28,7 @@ jwzx.emptyroom: http://jwzx.cqupt.edu.cn/jssq/jssqEmptyRoom.php?
 jwzx.newslist: http://jwzx.cqupt.edu.cn/data/json_files.php?
 jwzx.newscontent: http://jwzx.cqupt.edu.cn/fileShowContent.php?
 jwzx.verify: http://hongyan.cqupt.edu.cn/api/verify
+
+jwzx.courseInfo: http://jwzx.cqupt.edu.cn/kebiao/kb_stu.php
+jwzx.examUrl: http://jwzx.cqupt.edu.cn/ksap/showKsap.php?type=stu&id=
+jwzx.reexamUrl: http://jwzx.cqupt.edu.cn/ksap/ksapSearch.php?searchType=stuBk&key=

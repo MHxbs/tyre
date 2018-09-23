@@ -1,7 +1,7 @@
 package team.redrock.tyre.service;
 
 
-import team.redrock.tyre.util.response.GradeResponse;
+import team.redrock.tyre.domain.response.GradeResponse;
 
 public interface GradeService {
     public GradeResponse getGradeInfoFromIf(String stu_num, String id_num);

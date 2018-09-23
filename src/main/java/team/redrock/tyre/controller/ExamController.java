@@ -9,6 +9,7 @@ import team.redrock.tyre.domain.ExamResult;
 import team.redrock.tyre.entity.CourseInfo;
 import team.redrock.tyre.exception.StuidValidException;
 import team.redrock.tyre.service.ExamService;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 考试和补考的两个接口
  */
+@Slf4j
 @RestController
 public class ExamController {
 
@@ -36,6 +38,7 @@ public class ExamController {
 
         if (stuNum.equals("-1")){
             throw new StuidValidException(415,"check failed");
+            log.info("stuNum没有传");
         }
         // 存redis是用学号+exam
         String redisStuNum=stuNum+"exam";

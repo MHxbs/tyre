@@ -1,8 +1,8 @@
 package team.redrock.tyre.service;
 
 
-import team.redrock.tyre.util.response.NewsContentResponse;
-import team.redrock.tyre.util.response.NewslistResponse;
+import team.redrock.tyre.domain.response.NewsContentResponse;
+import team.redrock.tyre.domain.response.NewslistResponse;
 
 public interface NewsService {
     public NewslistResponse getListFromIp(int page);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import team.redrock.tyre.exception.StuidValidException;
 import team.redrock.tyre.service.EmptyRoomService;
 import team.redrock.tyre.util.NormalUtils;
-import team.redrock.tyre.util.response.EmptyResponse;
+import team.redrock.tyre.domain.response.EmptyResponse;
 
 @Controller
 public class EmptyRoomController {

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import team.redrock.tyre.exception.StuidValidException;
 import team.redrock.tyre.service.NewsService;
-import team.redrock.tyre.util.response.NewsContentResponse;
+import team.redrock.tyre.domain.response.NewsContentResponse;
 
 @Controller
 public class NewsContentController {

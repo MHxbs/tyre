@@ -6,10 +6,9 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import team.redrock.tyre.domain.NewsContent;
-import team.redrock.tyre.domain.NewsData;
 import team.redrock.tyre.domain.Url;
 import team.redrock.tyre.util.NewsUtils;
-import team.redrock.tyre.util.response.NewsContentResponse;
+import team.redrock.tyre.domain.response.NewsContentResponse;
 
 import java.util.ArrayList;
 import java.util.List;

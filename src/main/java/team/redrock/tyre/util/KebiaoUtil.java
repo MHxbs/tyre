@@ -60,7 +60,7 @@ public class KebiaoUtil {
      * @throws IOException
      */
 
-    public static List<CourseInfo> getTimeTableFromJWZX(String data) throws IOException {
+    public static List<CourseInfo> getTimeTableFromJWZX(String data) {
 
         // 得到教务在线的html
 

@@ -14,7 +14,7 @@ import team.redrock.tyre.domain.EmptyRoom;
 import team.redrock.tyre.service.EmptyRoomService;
 import team.redrock.tyre.util.NormalUtils;
 import team.redrock.tyre.util.analyzer.EmptyAnalyzer;
-import team.redrock.tyre.util.response.EmptyResponse;
+import team.redrock.tyre.domain.response.EmptyResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;

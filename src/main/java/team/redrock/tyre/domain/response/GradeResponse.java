@@ -1,7 +1,7 @@
-package team.redrock.tyre.util.response;
+package team.redrock.tyre.domain.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;

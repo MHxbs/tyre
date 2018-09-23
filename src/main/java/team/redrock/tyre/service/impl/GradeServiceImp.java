@@ -13,7 +13,7 @@ import team.redrock.tyre.mapper.GradeMapper;
 
 import team.redrock.tyre.service.GradeService;
 import team.redrock.tyre.util.analyzer.GradeAnalyzer;
-import team.redrock.tyre.util.response.GradeResponse;
+import team.redrock.tyre.domain.response.GradeResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;

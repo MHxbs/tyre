@@ -17,8 +17,8 @@ import team.redrock.tyre.domain.NewsInfo;
 import team.redrock.tyre.service.NewsService;
 import team.redrock.tyre.util.NewsUtils;
 import team.redrock.tyre.util.analyzer.NewsContentAnalyzer;
-import team.redrock.tyre.util.response.NewsContentResponse;
-import team.redrock.tyre.util.response.NewslistResponse;
+import team.redrock.tyre.domain.response.NewsContentResponse;
+import team.redrock.tyre.domain.response.NewslistResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;

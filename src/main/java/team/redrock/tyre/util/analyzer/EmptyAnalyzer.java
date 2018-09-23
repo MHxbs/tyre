@@ -3,7 +3,7 @@ package team.redrock.tyre.util.analyzer;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
-import team.redrock.tyre.util.response.EmptyResponse;
+import team.redrock.tyre.domain.response.EmptyResponse;
 
 
 import java.util.ArrayList;

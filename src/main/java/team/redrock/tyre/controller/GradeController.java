@@ -6,15 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import team.redrock.tyre.exception.StuidValidException;
-import team.redrock.tyre.service.EmptyRoomService;
 import team.redrock.tyre.service.GradeService;
-import team.redrock.tyre.service.NewsService;
 import team.redrock.tyre.service.VerifyService;
-import team.redrock.tyre.util.NormalUtils;
-import team.redrock.tyre.util.response.EmptyResponse;
-import team.redrock.tyre.util.response.GradeResponse;
-import team.redrock.tyre.util.response.NewsContentResponse;
-import team.redrock.tyre.util.response.NewslistResponse;
+import team.redrock.tyre.domain.response.GradeResponse;
 
 
 @Controller
@@ -40,7 +34,7 @@ public class GradeController {
             }
             if(response.getStatus() == 415 ){
                 throw new StuidValidException(451,"check failed");
-}
+            }
         return response;
     }
 

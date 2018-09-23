@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import team.redrock.tyre.entity.GradeInfo;
-import team.redrock.tyre.util.response.GradeResponse;
+import team.redrock.tyre.domain.response.GradeResponse;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,6 +16,7 @@ import team.redrock.tyre.mapper.KebiaoResultMapper;
 import team.redrock.tyre.service.KebiaoService;
 import team.redrock.tyre.util.KebiaoUtil;
 
+import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * 个人课表
  */
 
+@Slf4j
 @RestController
 public class CourseInfoController {
 
@@ -46,6 +48,7 @@ public class CourseInfoController {
      * @throws IOException
      * @throws StuidValidException
      */
+
     @PostMapping(value = "/kebiao")
     public KebiaoResult getKebiao(@RequestParam(name = "stu_num",required = false,defaultValue = "-1") String stu_num,
                                   @RequestParam(name = "forceFetch",required = false,defaultValue = "false") String  forceFetch ) throws IOException, StuidValidException, StuIdNullException {
@@ -53,10 +56,12 @@ public class CourseInfoController {
         // 如果没传
         if (stu_num.equals("-1")){
             throw new StuIdNullException(false,"stuNum not allowed");
+            log.info("stuNum没有传");
     }
         // 如果学号包含标点符号
         if (KebiaoUtil.check(stu_num)){
             throw new StuIdNullException(false,"stuNum not allowed");
+            log.info("stuNum中含有标点符号，不合法的字符 stuNum:"+stu_num);
         }
 
 

@@ -1,16 +1,16 @@
-package team.redrock.tyre.util.response;
+package team.redrock.tyre.domain.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import lombok.NoArgsConstructor;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewsContentResponse {
+public class NewslistResponse {
     int status;
     String info;
-    Long id;
+    int page;
     Object data;
 
     public int getStatus() {
@@ -29,12 +29,12 @@ public class NewsContentResponse {
         this.info = info;
     }
 
-    public Long getId() {
-        return id;
+    public int getPage() {
+        return page;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPage(int page) {
+        this.page = page;
     }
 
     public Object getData() {

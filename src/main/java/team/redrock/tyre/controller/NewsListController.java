@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import team.redrock.tyre.service.NewsService;
-import team.redrock.tyre.util.response.NewslistResponse;
+import team.redrock.tyre.domain.response.NewslistResponse;
 
 
 @Controller

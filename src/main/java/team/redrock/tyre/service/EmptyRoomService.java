@@ -2,7 +2,7 @@ package team.redrock.tyre.service;
 
 
 
-import team.redrock.tyre.util.response.EmptyResponse;
+import team.redrock.tyre.domain.response.EmptyResponse;
 
 import java.util.List;
 
