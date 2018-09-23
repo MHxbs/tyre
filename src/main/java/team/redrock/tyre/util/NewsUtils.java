@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class UrlConnectUtil {
+public class NewsUtils {
     /**网络请求获取新闻列表
      *
      * @param newsurl
@@ -63,5 +63,17 @@ public class UrlConnectUtil {
         String JsonStr = builder.toString();
         return JSONObject.parseObject(JsonStr);
 
+    }
+
+    public String getDate(String originDate){
+        String[] datetimes =  originDate.split("\\.");
+        String datetime  = new String();
+        for(int i=0;i<3;i++){
+            if (datetimes[i].charAt(0)=="0".charAt(0)){
+                datetimes[i] = datetimes[i].substring(1);
+            }
+        }
+        datetime = datetimes[0]+"年"+datetimes[1]+"月"+datetimes[2]+"日";
+        return datetime;
     }
 }

@@ -14,7 +14,7 @@ import team.redrock.tyre.domain.NewsContent;
 import team.redrock.tyre.domain.NewsData;
 import team.redrock.tyre.domain.NewsInfo;
 import team.redrock.tyre.service.NewsService;
-import team.redrock.tyre.util.UrlConnectUtil;
+import team.redrock.tyre.util.NewsUtils;
 import team.redrock.tyre.util.analyzer.NewsContentAnalyzer;
 import team.redrock.tyre.util.response.NewsContentResponse;
 import team.redrock.tyre.util.response.NewslistResponse;
@@ -43,11 +43,16 @@ public class NewsServiceImp implements NewsService {
             page = 1;
         }
     String url = nlUrl+"pageNo="+page+"&pageSize="+size+"&searchKey=";
-        UrlConnectUtil urlConnectUtil = new UrlConnectUtil();
+        NewsUtils newsUtils = new NewsUtils();
         NewslistResponse response = new NewslistResponse();
-        JSONObject object = urlConnectUtil.getNewsList(url);
+        JSONObject object = newsUtils.getNewsList(url);
 
         NewsInfo newsInfo = JSONObject.toJavaObject(object,NewsInfo.class);
+
+        List<NewsData> datalist = newsInfo.getData();
+        for (NewsData newsData: datalist) {
+            newsData.setPubTime( newsUtils.getDate(newsData.getPubTime()));
+        }
 
         response.setData(newsInfo.getData());
         response.setStatus(200);

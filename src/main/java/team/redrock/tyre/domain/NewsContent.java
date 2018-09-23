@@ -8,7 +8,35 @@ import java.util.List;
 public class NewsContent {
 
     String title;
+    String pubTime;
+    String teaName;
+    int readCount;
     String content;
+    List<Url> urlData;
+
+    public String getPubTime() {
+        return pubTime;
+    }
+
+    public void setPubTime(String pubTime) {
+        this.pubTime = pubTime;
+    }
+
+    public String getTeaName() {
+        return teaName;
+    }
+
+    public void setTeaName(String teaName) {
+        this.teaName = teaName;
+    }
+
+    public int getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(int readCount) {
+        this.readCount = readCount;
+    }
 
     public String getContent() {
         return content;
@@ -26,7 +54,7 @@ public class NewsContent {
         this.urlData = urlData;
     }
 
-    List<Url> urlData;
+
 
 
 

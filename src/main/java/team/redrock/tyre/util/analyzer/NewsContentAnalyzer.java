@@ -6,7 +6,9 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import team.redrock.tyre.domain.NewsContent;
+import team.redrock.tyre.domain.NewsData;
 import team.redrock.tyre.domain.Url;
+import team.redrock.tyre.util.NewsUtils;
 import team.redrock.tyre.util.response.NewsContentResponse;
 
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class NewsContentAnalyzer {
         List<Url> urlData = new ArrayList<>();
         List<String> strs = new ArrayList<>();
         String context =new String();
+
+        NewsUtils newsUtils = new NewsUtils();
+
         Element element = document.body().getElementById("mainPanel");
 
         Element div = element.getElementsByTag("div").get(0);
@@ -36,6 +41,23 @@ public class NewsContentAnalyzer {
 
         Elements content = div.getElementsByTag("p");
 
+        //获取页头（内容的时间、作者和阅读数）
+        String pagehead = content.get(0).text().replaceAll(" {2,}", " ");
+        System.out.println(pagehead);
+        String[] splits = pagehead.split(" ");
+        List<String> infos = new ArrayList<>();
+
+        for (String s:splits) {
+            String[]ss =  s.split("：");
+            infos.add(ss[1]);
+        }
+        String datetime = newsUtils.getDate(infos.get(0));
+        data.setPubTime(datetime);
+        data.setTeaName(infos.get(1));
+        data.setReadCount(Integer.parseInt(infos.get(2)));
+        System.out.println("datetime"+datetime);
+
+        //获取新闻正文
         content.forEach(con->{
             strs.add(con.toString());
         });
