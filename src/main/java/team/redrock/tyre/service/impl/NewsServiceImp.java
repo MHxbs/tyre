@@ -2,6 +2,7 @@ package team.redrock.tyre.service.impl;
 
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Service
 @CacheConfig(cacheNames = "newslist")
 public class NewsServiceImp implements NewsService {
@@ -110,7 +111,7 @@ public class NewsServiceImp implements NewsService {
     }
     @CacheEvict(value = "newsUser",allEntries = true)
     public void deleteNewslist(){
-//        System.out.println("清除缓存");
+log.info("清除缓存");
     }
 
 }

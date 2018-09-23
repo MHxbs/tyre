@@ -1,5 +1,6 @@
 package team.redrock.tyre.util;
 
+import lombok.extern.slf4j.Slf4j;
 import team.redrock.tyre.domain.ExamInfo;
 import team.redrock.tyre.domain.ExamTime;
 import team.redrock.tyre.domain.ReExamInfo;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 public class Exam {
 
     public static List<ExamInfo> getExam(String data){
@@ -141,7 +143,7 @@ public class Exam {
         }
         catch (Exception e)
         {
-            System.out.println("错误!");
+            log.error("错误！");
         }
         dayOfweek-=1;
         if (dayOfweek==0){

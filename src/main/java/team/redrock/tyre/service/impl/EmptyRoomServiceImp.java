@@ -1,5 +1,6 @@
 package team.redrock.tyre.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 @CacheConfig(cacheNames = "empty")
 public class EmptyRoomServiceImp implements EmptyRoomService {
@@ -137,6 +139,6 @@ if(normalUtils.isInteger(week)||normalUtils.isInteger(weekdayNum)||normalUtils.i
 
     public void deleteCahce(){
         emptyRoomRedisTemplate.delete("EmptyRoom");
-//        System.out.println("清除缓存");
+        log.info("清除缓存");
     }
 }
