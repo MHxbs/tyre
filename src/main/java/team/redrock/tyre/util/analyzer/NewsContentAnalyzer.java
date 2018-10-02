@@ -3,19 +3,24 @@ package team.redrock.tyre.util.analyzer;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import team.redrock.tyre.domain.NewsContent;
 import team.redrock.tyre.domain.Url;
 import team.redrock.tyre.util.NewsUtils;
 import team.redrock.tyre.domain.response.NewsContentResponse;
+import team.redrock.tyre.util.NormalUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class NewsContentAnalyzer {
 
+    @Value("${saveFilePath}")
+    private String savePath;
 
     /**
      * 获取新闻内容
@@ -26,6 +31,7 @@ public class NewsContentAnalyzer {
 
     public NewsContent getNewsContent(Document document, NewsContentResponse newsContentResponse){
         NewsContent data = new NewsContent();
+        NormalUtils normalUtils = new NormalUtils();
         List<Url> urlData = new ArrayList<>();
         List<String> strs = new ArrayList<>();
         String context =new String();
@@ -42,19 +48,23 @@ public class NewsContentAnalyzer {
 
         //获取页头（内容的时间、作者和阅读数）
         String pagehead = content.get(0).text().replaceAll(" {2,}", " ");
-        System.out.println(pagehead);
+
         String[] splits = pagehead.split(" ");
         List<String> infos = new ArrayList<>();
 
         for (String s:splits) {
             String[]ss =  s.split("：");
-            infos.add(ss[1]);
+            if(ss.length==2){                                      //避免出现无上传者的情况
+                infos.add(ss[1]);
+            }else{
+                infos.add("");
+            }
         }
         String datetime = newsUtils.getDate(infos.get(0));
         data.setPubTime(datetime);
         data.setTeaName(infos.get(1));
         data.setReadCount(Integer.parseInt(infos.get(2)));
-        System.out.println("datetime"+datetime);
+
 
         //获取新闻正文
         content.forEach(con->{
@@ -72,12 +82,37 @@ public class NewsContentAnalyzer {
 
         data.setContent(c);
 
+        //获取下载链接并下载文件到静态文件夹
+        final String[] fileUrl = {new String()};
         Elements ul = div.getElementsByTag("ul").get(0).children();
         ul.forEach(li ->{
-            Url url = new Url();
-            url.setUrl(li.getElementsByTag("a").attr("href"));
-            url.setUrlname(li.getElementsByTag("a").text());
-            urlData.add(url);
+            if(li.getElementsByTag("a").attr("target").equals("_blank")){
+                Url url = new Url();
+                String uri = li.getElementsByTag("a").attr("href");
+                String[] urlNameSpilts = li.getElementsByTag("a").text().split("\\(");        //删除文件名后自带的下载数
+                String urlName = urlNameSpilts[0];
+//                System.out.println("urlName:"+urlName);
+                synchronized (this){
+                    fileUrl[0] = normalUtils.traverseFolder(urlName,savePath);
+                    if(fileUrl[0] !=null){
+                        System.out.println("文件已存在");
+
+                    } else {
+                        System.out.println("调用文件接口");
+                        String downLoadUrl = "http://jwzx.cqupt.edu.cn/" + uri;
+                        try {
+                            String suffix = newsUtils.downloadFile(downLoadUrl, "D:\\temp", urlName);
+                            fileUrl[0] = savePath+"/"+urlName+suffix;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+                url.setUrl(fileUrl[0]);
+                url.setUrlname(urlName);
+                urlData.add(url);
+            }
         });
         data.setUrlData(urlData);
         if(title==null){
