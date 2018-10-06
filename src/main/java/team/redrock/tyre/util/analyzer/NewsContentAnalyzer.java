@@ -23,6 +23,8 @@ public class NewsContentAnalyzer {
 
     @Value("${saveFilePath}")
     private String savePath;
+    @Value("${jwzx.rootPath}")
+    private String rootPath;
 
     /**
      * 获取新闻内容
@@ -101,7 +103,7 @@ public class NewsContentAnalyzer {
 
                     } else {
                         log.info("调用文件接口");
-                        String downLoadUrl = "http://jwzx.cqupt.edu.cn/" + uri;
+                        String downLoadUrl = rootPath + uri;
                         try {
                             String suffix = newsUtils.downloadFile(downLoadUrl, savePath, urlName);
                             fileUrl[0] = savePath+"/"+urlName+suffix;

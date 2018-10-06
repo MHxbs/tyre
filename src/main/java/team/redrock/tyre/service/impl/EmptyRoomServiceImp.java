@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @CacheConfig(cacheNames = "empty")
 public class EmptyRoomServiceImp implements EmptyRoomService {
-    @Value("${jwzx.emptyroom}")
+    @Value("${jwzx.emptyRoom}")
     private String emptyUrl;
 
     @Autowired
@@ -117,7 +117,7 @@ if(normalUtils.isInteger(week)||normalUtils.isInteger(weekdayNum)||normalUtils.i
 
     public List<String> getRooms(String weekdayNum,String sectionNum,String week,String buildNum){
         if(emptyUrl == null){
-            emptyUrl = "http://jwzx.cqupt.edu.cn/jssq/jssqEmptyRoom.php?";
+           log.error("Can't find request url");
         }
         String url = emptyUrl+"zc="+week+"&xq="+weekdayNum+"&sd="+sectionNum;
 //        System.out.println(url);

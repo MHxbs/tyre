@@ -28,9 +28,9 @@ import java.util.List;
 @Service
 @CacheConfig(cacheNames = "newslist")
 public class NewsServiceImp implements NewsService {
-    @Value("${jwzx.newslist}")
+    @Value("${jwzx.newsList}")
     private String nlUrl;
-    @Value("${jwzx.newscontent}")
+    @Value("${jwzx.newsContent}")
     private String ncUrl;
     @Autowired
     private NewsContentAnalyzer newsContentAnalyzer;

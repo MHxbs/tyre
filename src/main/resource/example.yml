@@ -23,11 +23,12 @@ mybatis:
   type-aliases-package: team.redrock.tyre.entity
 
 
-jwzx.chengji: http://jwc.cqupt.edu.cn/showStuQmcj.php
-jwzx.emptyroom: http://jwzx.cqupt.edu.cn/jssq/jssqEmptyRoom.php?
-jwzx.newslist: http://jwzx.cqupt.edu.cn/data/json_files.php?
-jwzx.newscontent: http://jwzx.cqupt.edu.cn/fileShowContent.php?
+jwzx.grade: http://jwc.cqupt.edu.cn/showStuQmcj.php
+jwzx.emptyRoom: http://jwzx.cqupt.edu.cn/jssq/jssqEmptyRoom.php?
+jwzx.newsList: http://jwzx.cqupt.edu.cn/data/json_files.php?
+jwzx.newsContent: http://jwzx.cqupt.edu.cn/fileShowContent.php?
 jwzx.verify: http://hongyan.cqupt.edu.cn/api/verify
+jwzx.rootPath: http://jwzx.cqupt.edu.cn/
 saveFilePath: src/main/resources/static
 
 jwzx.courseInfo: http://jwzx.cqupt.edu.cn/kebiao/kb_stu.php

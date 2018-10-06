@@ -23,7 +23,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "grade")
 public class GradeServiceImp implements GradeService {
 
-    @Value("${jwzx.chengji}")
+    @Value("${jwzx.grade}")
     private String cjUrl;
     @Autowired
     private GradeAnalyzer gradeAnalyzer;
