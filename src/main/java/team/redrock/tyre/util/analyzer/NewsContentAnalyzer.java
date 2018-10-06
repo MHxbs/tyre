@@ -25,6 +25,10 @@ public class NewsContentAnalyzer {
     private String savePath;
     @Value("${jwzx.rootPath}")
     private String rootPath;
+    @Value("${prjPath}")
+    private String prjPath;
+    @Value("${serverPath}")
+    private String serverPath;
 
     /**
      * 获取新闻内容
@@ -100,20 +104,20 @@ public class NewsContentAnalyzer {
                     fileUrl[0] = normalUtils.traverseFolder(urlName,savePath);
                     if(fileUrl[0] !=null){
                        log.info("文件已存在");
-
+                        fileUrl[0] = fileUrl[0].replace("\\","/");
                     } else {
                         log.info("调用文件接口");
                         String downLoadUrl = rootPath + uri;
                         try {
                             String suffix = newsUtils.downloadFile(downLoadUrl, savePath, urlName);
-                            fileUrl[0] = savePath+"/"+urlName+suffix;
+                            fileUrl[0] =savePath+"/"+urlName+suffix;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
                     }
                 }
-                url.setUrl(fileUrl[0]);
+                url.setUrl( rootPath+prjPath+fileUrl[0]);
                 url.setUrlname(urlName);
                 urlData.add(url);
             }

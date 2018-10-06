@@ -29,6 +29,8 @@ jwzx.newsList: http://jwzx.cqupt.edu.cn/data/json_files.php?
 jwzx.newsContent: http://jwzx.cqupt.edu.cn/fileShowContent.php?
 jwzx.verify: http://hongyan.cqupt.edu.cn/api/verify
 jwzx.rootPath: http://jwzx.cqupt.edu.cn/
+serverPath:
+prjPath:
 saveFilePath: src/main/resources/static
 
 jwzx.courseInfo: http://jwzx.cqupt.edu.cn/kebiao/kb_stu.php
