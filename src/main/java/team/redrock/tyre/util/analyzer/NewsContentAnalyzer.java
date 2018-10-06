@@ -1,5 +1,6 @@
 package team.redrock.tyre.util.analyzer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Slf4j
 public class NewsContentAnalyzer {
 
     @Value("${saveFilePath}")
@@ -95,13 +97,13 @@ public class NewsContentAnalyzer {
                 synchronized (this){
                     fileUrl[0] = normalUtils.traverseFolder(urlName,savePath);
                     if(fileUrl[0] !=null){
-                        System.out.println("文件已存在");
+                       log.info("文件已存在");
 
                     } else {
-                        System.out.println("调用文件接口");
+                        log.info("调用文件接口");
                         String downLoadUrl = "http://jwzx.cqupt.edu.cn/" + uri;
                         try {
-                            String suffix = newsUtils.downloadFile(downLoadUrl, "D:\\temp", urlName);
+                            String suffix = newsUtils.downloadFile(downLoadUrl, savePath, urlName);
                             fileUrl[0] = savePath+"/"+urlName+suffix;
                         } catch (IOException e) {
                             e.printStackTrace();
